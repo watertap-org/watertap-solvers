@@ -17,6 +17,7 @@ dependencies = [
 [project.optional-dependencies]
 testing = [
     "pytest",
+    "ipython",
 ]
 
 [tool.setuptools_scm]
