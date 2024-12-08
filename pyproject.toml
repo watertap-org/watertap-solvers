@@ -1,0 +1,25 @@
+[build-system]
+requires = [
+    "setuptools >= 64",
+    "setuptools_scm >= 8",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "watertap-solvers" 
+readme = "README.md"
+dynamic = ["version"]
+dependencies = [
+    "pyomo",
+    "idaes-pse",
+]
+
+[project.optional-dependencies]
+testing = [
+    "pytest",
+]
+
+[tool.setuptools_scm]
+# https://setuptools-scm.readthedocs.io/en/v8.1.0/extending/
+version_scheme = "only-version"
+local_scheme = "node-and-date"
