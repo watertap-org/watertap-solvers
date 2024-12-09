@@ -11,4 +11,7 @@
 #################################################################################
 
 # register the Pyomo components
-import watertap.core.plugins.solvers
+from ._base import IpoptWaterTAP
+from ._base import CyIpoptWaterTAP
+from ._base import create_debug_solver_wrapper
+

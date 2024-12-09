@@ -20,9 +20,9 @@ from idaes.core.util.scaling import (
     constraints_with_scale_factor_generator,
 )
 from idaes.core.util.model_statistics import number_activated_objectives
-from watertap.core.plugins.solvers import IpoptWaterTAP, _pyomo_nl_writer_log
-
-import watertap.core.plugins.solvers as solver_module
+from watertap_solvers import IpoptWaterTAP
+from watertap_solvers._base import _pyomo_nl_writer_log
+import watertap_solvers._base as solver_module
 
 
 class TestIpoptWaterTAP:

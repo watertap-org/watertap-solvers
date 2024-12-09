@@ -13,8 +13,8 @@
 import idaes
 from idaes.core.util.exceptions import BurntToast
 from idaes.logger import solver_capture_off
-from watertap.core.plugins.solvers import create_debug_solver_wrapper
-import watertap.core.solvers as wt_solvers
+from watertap_solvers import create_debug_solver_wrapper
+import watertap_solvers as wt_solvers
 
 
 class _ModelDebugMode:

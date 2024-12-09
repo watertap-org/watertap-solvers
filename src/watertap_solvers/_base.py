@@ -429,7 +429,7 @@ class _BaseDebugSolverWrapper:
             return results
 
         # prevent circular imports
-        from watertap.core.util import model_debug_mode
+        from watertap_solvers import model_debug_mode
 
         # deactivate the model debug mode so we don't
         # nest this environment within itself
