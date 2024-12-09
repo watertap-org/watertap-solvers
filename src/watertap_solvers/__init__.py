@@ -41,4 +41,3 @@ def get_solver(solver=None, options=None):
         solver_obj.options.update(options)
 
     return solver_obj
-
