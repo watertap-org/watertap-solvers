@@ -10,8 +10,35 @@
 # "https://github.com/watertap-org/watertap/"
 #################################################################################
 
+from idaes.core.solvers import SolverWrapper as _SolverWrapper
+
 # register the Pyomo components
 from ._base import IpoptWaterTAP
 from ._base import CyIpoptWaterTAP
 from ._base import create_debug_solver_wrapper
+
+
+_default_solver = "ipopt-watertap"
+
+
+def get_solver(solver=None, options=None):
+    """
+    General method for getting a solver object which defaults to IpoptWaterTAP
+
+    Args:
+        solver: string name for desired solver. Default=None, use default solver
+        options: dict of solver options to use, overwrites any settings in
+                 IpoptWaterTAP. Default = None, use default solver options.
+
+    Returns:
+        A Pyomo solver object
+    """
+    if solver is None:
+        solver = _default_solver
+    solver_obj = _SolverWrapper(solver, register=False)()
+
+    if options is not None:
+        solver_obj.options.update(options)
+
+    return solver_obj
 

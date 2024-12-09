@@ -12,6 +12,7 @@
 
 from dataclasses import dataclass
 from functools import cached_property
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -63,22 +64,18 @@ class IPythonComms:
         return self.error_file_path.read_text().strip()
 
 
-def test_debug_mode(tmp_path: Path):
-    script = """
-import pyomo.environ as pyo
-from watertap.core.solvers import get_solver
-
-from watertap.core.util.model_debug_mode import activate; activate()
-
-
-m = pyo.ConcreteModel()
-m.x = pyo.Var([1,2], bounds=(0,1))
-m.c = pyo.Constraint(expr=m.x[1] * m.x[2] == -1)
-
-if __name__ == '__main__':
-    solver = get_solver()
-    solver.solve(m)
-    """
+@pytest.mark.parametrize(
+    "path_to_script",
+    [
+        "model_debug_example_script.py",
+    ],
+    ids=os.fspath,
+)
+def test_debug_mode(path_to_script: Path, tmp_path: Path):
+    path_to_script = Path(path_to_script)
+    if not path_to_script.is_absolute():
+        path_to_script = Path(__file__).parent / path_to_script
+    script = path_to_script.read_text()
 
     ipy = IPythonComms(
         statements=[
@@ -103,4 +100,8 @@ if __name__ == '__main__':
     )
 
     out, err = proc.communicate(input=ipy.for_stdin, timeout=30)
+    if out:
+        print(out)
+    if err:
+        print(err)
     assert ipy.error_text == ipy.message_when_no_errors
